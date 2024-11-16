@@ -1,12 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
-import CardInfo from "./_components/CardInfo";
-import { db } from "../../../utils/dbConfig";
+import CardInfo from "@/app/(routes)/dashboard/_components/CardInfo"; // Updated to use @ alias
+import { db } from "@/utils/dbConfig"; // Updated to use @ alias
 import { eq, getTableColumns, sql } from "drizzle-orm";
-import { Budgets, Expenses } from "../../../utils/schema";
-import BarChartDashboard from "../../../app/(routes)/dashboard/_components/BarChartDashboard";
-import ExpenseListTable from "../../../app/(routes)/dashboard/expenses/_components/ExpenseListTable";
+import { Budgets, Expenses } from "@/utils/schema"; // Updated to use @ alias
+import BarChartDashboard from "@/app/(routes)/dashboard/_components/BarChartDashboard"; // Updated to use @ alias
+import ExpenseListTable from "@/app/(routes)/dashboard/expenses/_components/ExpenseListTable"; // Updated to use @ alias
+
 
 export default function Dashboard() {
   const [budgetList, setBudgetList] = useState([]);

@@ -1,10 +1,13 @@
+"use client";
+
 import React, { useState } from 'react';
-import { Input } from '../../../../../components/ui/input';
-import { Button } from '../../../../../components/ui/button';
-import { db } from '../../../../../utils/dbConfig';
-import { Budgets, Expenses } from '../../../../../utils/schema';
+import { Input } from "@/components/ui/input"; // Updated import path
+import { Button } from "@/components/ui/button"; // Updated import path
+import { db } from "@/utils/dbConfig"; // Updated import path
+import { Budgets, Expenses } from "@/utils/schema"; // Updated import path
 import { toast } from 'sonner';
 import moment from 'moment';
+
 
 function AddExpenses({ budgetId, user, refreshData }) {
   const [name, setName] = useState('');

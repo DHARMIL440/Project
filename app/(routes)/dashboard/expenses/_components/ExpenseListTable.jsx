@@ -1,9 +1,10 @@
 import { Trash } from 'lucide-react';
 import React from 'react';
-import { db } from '../../../../../utils/dbConfig';
-import { Expenses } from '../../../../../utils/schema';
+import { db } from '@/utils/dbConfig'; // Updated import path
+import { Expenses } from '@/utils/schema'; // Updated import path
 import { toast } from 'sonner';
 import { eq } from 'drizzle-orm';
+
 
 function ExpenseListTable({ expensesList = [], refreshData }) {
   const deleteExpense = async (expense) => {

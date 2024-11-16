@@ -1,11 +1,11 @@
 "use client";
 import React, { useEffect, useState } from 'react';
-import SideNav from './_components/SideNav';
-import DashboardHeader from './_components/DashboardHeader';
-import { db } from '../../../utils/dbConfig';
-import { Budgets, Expenses } from '../../../utils/schema';
-import { useUser } from '@clerk/nextjs';
-import { eq, sql } from 'drizzle-orm';
+import SideNav from "@/app/(routes)/dashboard/_components/SideNav"; // Updated path with @ alias
+import DashboardHeader from "@/app/(routes)/dashboard/_components/DashboardHeader"; // Updated path with @ alias
+import { db } from "@/utils/dbConfig"; // Updated path with @ alias
+import { Budgets, Expenses } from "@/utils/schema"; // Updated path with @ alias
+import { useUser } from "@clerk/nextjs";
+import { eq, sql } from "drizzle-orm";
 
 export default function DashboardLayout({ children }) {
   const { user } = useUser();

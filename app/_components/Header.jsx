@@ -1,10 +1,11 @@
 "use client";
 
 import React from "react";
-import { Button } from "/components/ui/button.jsx";
+import { Button } from "@/components/ui/button"; // Updated import path based on alias
 import { UserButton, useUser } from "@clerk/nextjs";
 import Link from "next/link"; // Import Link for navigation
 import Image from "next/image"; // Import Image component
+
 
 function Header() {
   const { user, isSignedIn } = useUser();

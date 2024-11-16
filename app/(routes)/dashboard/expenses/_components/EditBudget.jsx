@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button } from "../../../../../components/ui/button";
+import { Button } from "@/components/ui/button"; // Updated import path
 import { PenBox } from "lucide-react";
 import {
   Dialog,
@@ -9,12 +9,12 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../../../components/ui/dialog";
+} from "@/components/ui/dialog"; // Updated import path
 import EmojiPicker from "emoji-picker-react";
 import { useUser } from "@clerk/nextjs";
-import { Input } from "../../../../../components/ui/input";
-import { db } from "../../../../../utils/dbConfig";
-import { Budgets } from "../../../../../utils/schema";
+import { Input } from "@/components/ui/input"; // Updated import path
+import { db } from "@/utils/dbConfig"; // Updated import path
+import { Budgets } from "@/utils/schema"; // Updated import path
 import { eq } from "drizzle-orm";
 import { toast } from "sonner";
 

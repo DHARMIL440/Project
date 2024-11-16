@@ -3,8 +3,12 @@
 import * as React from "react";
 import * as AlertDialogPrimitive from "@radix-ui/react-alert-dialog";
 
-import { cn } from "../../lib/utils";
-import { buttonVariants } from "./button";
+// Corrected import path for utility function
+import { cn } from "@/lib/utils"; 
+
+// Corrected import path for buttonVariants
+import { buttonVariants } from "@/components/ui/button"; // Updated to match alias configuration
+
 
 
 const AlertDialog = AlertDialogPrimitive.Root

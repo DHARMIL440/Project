@@ -7,14 +7,16 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "../../../../../../components/ui/dialog";
+} from "@/components/ui/dialog"; 
+
 import EmojiPicker from "emoji-picker-react";
-import { Button } from "../../../../../../components/ui/button";
-import { Input } from "../../../../../../components/ui/input";
-import { db } from "../../../../../../utils/dbConfig";
-import { Budgets } from "../../../../../../utils/schema";
+import { Button } from "@/components/ui/button"; // Updated import using @ alias
+import { Input } from "@/components/ui/input"; // Updated import using @ alias
+import { db } from "@/utils/dbConfig"; // Updated import using @ alias
+import { Budgets } from "@/utils/schema"; // Updated import using @ alias
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
+
 
 function CreateBudget({ refreshData }) {
   const [emojiIcon, setEmojiIcon] = useState("😀");

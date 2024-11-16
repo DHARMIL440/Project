@@ -1,15 +1,15 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { db } from "../../../../../utils/dbConfig";
-import { Budgets, Expenses } from "../../../../../utils/schema";
-import ExpenseListTable from "../_components/ExpenseListTable";
+import { db } from "@/utils/dbConfig"; // Updated import path
+import { Budgets, Expenses } from "@/utils/schema"; // Updated import path
+import ExpenseListTable from "@/app/(routes)/dashboard/expenses/_components/ExpenseListTable"; // Updated import path
 import { useUser } from "@clerk/nextjs";
 import { desc, eq, getTableColumns, sql } from "drizzle-orm";
-import BudgetItem from "../../budgets/_components/BudgetItem";
-import AddExpenses from "../_components/AddExpenses";
-import { Button } from "../../../../../components/ui/button";
+import BudgetItem from "@/app/(routes)/dashboard/budgets/_components/BudgetItem"; // Updated import path
+import AddExpenses from "@/app/(routes)/dashboard/expenses/_components/AddExpenses"; // Updated import path
+import { Button } from "@/components/ui/button"; // Updated import path
 import { Trash, ArrowLeft } from "lucide-react";
-import EditBudget from "../_components/EditBudget";
+import EditBudget from "@/app/(routes)/dashboard/expenses/_components/EditBudget"; // Updated import path
 import {
   AlertDialog,
   AlertDialogAction,
@@ -19,9 +19,10 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "../../../../../components/ui/alert-dialog";
+} from "@/components/ui/alert-dialog"; // Updated import path
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+
 
 function ExpensesScreen({ params }) {
   const { user } = useUser();

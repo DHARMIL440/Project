@@ -1,12 +1,13 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react'
-import CreateBudget from './CreateBudget'
-import { db } from '../../../../../utils/dbConfig'
-import { eq, getTableColumns, sql } from 'drizzle-orm'
-import { Budgets, Expenses } from '../../../../../utils/schema'
-import { useUser } from '@clerk/nextjs'
-import BudgetItem from './BudgetItem'
+import React, { useEffect, useState } from 'react';
+import CreateBudget from "@/app/(routes)/dashboard/budgets/_components/CreateBudget"; // Updated import path
+import { db } from "@/utils/dbConfig"; // Updated import path based on alias
+import { eq, getTableColumns, sql } from "drizzle-orm";
+import { Budgets, Expenses } from "@/utils/schema"; // Updated import path
+import { useUser } from "@clerk/nextjs";
+import BudgetItem from "@/app/(routes)/dashboard/budgets/_components/BudgetItem"; // Updated import path
+
 
 function BudgetList() {
   const [budgetList, setBudgetList] = useState([]);
