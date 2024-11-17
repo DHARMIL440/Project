@@ -14,18 +14,25 @@ function BudgetList() {
   const { user } = useUser();
 
   useEffect(() => {
-    if (user) getBudgetList();
+    if (user) {
+      console.log("Logged-in user: ", user);  // Log user data for debugging
+      getBudgetList();
+    }
   }, [user]);
 
   const getBudgetList = async () => {
+    if (!user) return;  // Ensure the user is defined
+
     const result = await db.select({
       ...getTableColumns(Budgets),
       totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
       totalItem: sql`count(${Expenses.id})`.mapWith(Number),
     }).from(Budgets)
       .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
-      .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))
+      .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress)) // Filter by the current user's email
       .groupBy(Budgets.id);
+
+    console.log("Budget List: ", result);  // Log the result for debugging
     setBudgetList(result);
   };
 
