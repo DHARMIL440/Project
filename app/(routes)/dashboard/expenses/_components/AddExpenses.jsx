@@ -23,6 +23,35 @@ function AddExpenses({ budgetId, user, refreshData }) {
   
   
 
+
+  const sendNotification = async (budgetName, budgetLimit, currentTotal) => {
+    try {
+      const response = await fetch('/sendEmail.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email: user?.primaryEmailAddress?.emailAddress,
+          subject: 'Budget Exceeded Alert',
+          message: `Your budget "${budgetName}" has been exceeded. 
+          Budget Limit: ₹${budgetLimit}
+          Current Total Expenses: ₹${currentTotal}`,
+        }),
+      });
+
+      if (response.ok) {
+        toast.success('Notification sent successfully!');
+      } else {
+        toast.error('Failed to send notification.');
+      }
+    } catch (error) {
+      console.error('Error sending notification:', error);
+      toast.error('Error sending notification.');
+    }
+  };
+
+  
   const addNewExpense = async () => {
     try {
       const result = await db.insert(Expenses).values({
@@ -39,17 +68,22 @@ function AddExpenses({ budgetId, user, refreshData }) {
   
         // Fetch the budget details
         const budget = await db
-          .select({
-            name: Budgets.name,
-            amount: Budgets.amount, // Field to track the budget amount
-          })
-          .from(Budgets)
-          .where(eq(Budgets.id,budgetId));
+  .select({
+    name: Budgets.name,
+    amount: Budgets.amount, // Field to track the budget amount
+  })
+  .from(Budgets)
+  .where(eq(Budgets.id, Number(budgetId))); // Corrected query
+
   
         if (budget.length > 0) {
           const { name: budgetName, amount: budgetLimit } = budget[0];
           const currentTotal = budget[0].amount; // Assuming you track the total in the 'amount' field
   
+          // Check if the budget is exceeded
+          if (currentTotal + Number(amount) > budgetLimit) {
+            await sendNotification(budgetName, budgetLimit, currentTotal + Number(amount));
+          }
         }
   
         setName('');
@@ -62,6 +96,7 @@ function AddExpenses({ budgetId, user, refreshData }) {
       toast.error("Failed to add expense");
     }
   };
+  
   
 
   return (
