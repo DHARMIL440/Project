@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input"; 
 import { Button } from "@/components/ui/button";
 import { db } from "@/utils/dbConfig"; 
-import { Expenses } from "@/utils/schema"; 
+import { Expenses, Budgets } from "@/utils/schema"; 
 import { toast } from "sonner";
 import moment from 'moment';
+import { eq } from "drizzle-orm";
 
 function AddExpenses({ budgetId, user, refreshData }) {
   const [name, setName] = useState('');
@@ -20,6 +21,7 @@ function AddExpenses({ budgetId, user, refreshData }) {
   ];
 
   
+  
 
   const addNewExpense = async () => {
     try {
@@ -29,15 +31,31 @@ function AddExpenses({ budgetId, user, refreshData }) {
         budgetId: Number(budgetId),
         createdBy: user?.primaryEmailAddress?.emailAddress,
         createdAt: moment().toDate(),
-        payment_method: paymentMethod,  // Ensure this matches the column name
+        payment_method: paymentMethod,
       }).returning({ insertedId: Expenses.id });
   
-      if (result) { 
+      if (result) {
         refreshData();
-        toast.success("New Expense Added!");
+  
+        // Fetch the budget details
+        const budget = await db
+          .select({
+            name: Budgets.name,
+            amount: Budgets.amount, // Field to track the budget amount
+          })
+          .from(Budgets)
+          .where(eq(Budgets.id,budgetId));
+  
+        if (budget.length > 0) {
+          const { name: budgetName, amount: budgetLimit } = budget[0];
+          const currentTotal = budget[0].amount; // Assuming you track the total in the 'amount' field
+  
+        }
+  
         setName('');
         setAmount('');
         setPaymentMethod('Cash');
+        toast.success("New Expense Added!");
       }
     } catch (error) {
       console.error('Error adding expense:', error);
@@ -86,7 +104,6 @@ function AddExpenses({ budgetId, user, refreshData }) {
             ))}
           </select>
         </div>
-
 
         <Button 
           disabled={!(name && amount && paymentMethod)} 

@@ -3,7 +3,7 @@ import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
-import { LayoutGrid, PiggyBank, ReceiptText, ShieldCheck } from 'lucide-react';
+import { LayoutGrid, PiggyBank, ReceiptText, ShieldCheck, Home } from 'lucide-react';
 import { UserButton } from '@clerk/nextjs';
 
 export default function SideNav() {
@@ -47,7 +47,19 @@ export default function SideNav() {
       </div>
 
       {/* Bottom Section */}
-      <div className="mt-auto">
+      <div className="mt-auto space-y-2">
+        {/* Go to Main Page Component */}
+        <Link href="/" className="block">
+          <h2
+            className={`flex gap-2 items-center text-blue-500 font-medium p-5 cursor-pointer rounded-md transition duration-200 
+              ${path === '/' ? 'bg-blue-500 text-white' : 'hover:text-white hover:bg-blue-500'}`}
+          >
+            <Home />
+            Go to Main Page
+          </h2>
+        </Link>
+
+        {/* User Button */}
         <UserButton afterSignOutUrl="/" />
       </div>
     </div>
