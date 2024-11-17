@@ -21,21 +21,22 @@ function BudgetList() {
   }, [user]);
 
   const getBudgetList = async () => {
-    if (!user) return;  // Ensure the user is defined
-
+    if (!user) return;
+  
     const result = await db.select({
       ...getTableColumns(Budgets),
       totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
       totalItem: sql`count(${Expenses.id})`.mapWith(Number),
+      paymentMethod: sql`array_agg(${Expenses.payment_method})`.mapWith(String),  // Add payment_method here
     }).from(Budgets)
       .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
-      .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress)) // Filter by the current user's email
+      .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))
       .groupBy(Budgets.id);
-
-    console.log("Budget List: ", result);  // Log the result for debugging
+  
+    console.log("Budget List: ", result);
     setBudgetList(result);
   };
-
+  
   return (
     <div className="mt-7 min-h-screen">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 h-full">
