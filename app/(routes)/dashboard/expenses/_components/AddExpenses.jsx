@@ -16,7 +16,7 @@ function AddExpenses({ budgetId, user, refreshData }) {
     'Credit',
     'Debit',
     'UPI',
-    'Check'
+    'Cheque'
   ];
 
   
