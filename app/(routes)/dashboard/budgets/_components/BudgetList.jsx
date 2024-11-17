@@ -27,7 +27,7 @@ function BudgetList() {
       ...getTableColumns(Budgets),
       totalSpend: sql`sum(${Expenses.amount})`.mapWith(Number),
       totalItem: sql`count(${Expenses.id})`.mapWith(Number),
-      paymentMethod: sql`array_agg(${Expenses.payment_method})`.mapWith(String),  // Add payment_method here
+      paymentMethod: sql`array_agg(${Expenses.payment_method})`.mapWith(String),
     }).from(Budgets)
       .leftJoin(Expenses, eq(Budgets.id, Expenses.budgetId))
       .where(eq(Budgets.createdBy, user?.primaryEmailAddress?.emailAddress))

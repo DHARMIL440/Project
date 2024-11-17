@@ -28,10 +28,10 @@ function AddExpenses({ budgetId, user, refreshData }) {
         amount: Number(amount),
         budgetId: Number(budgetId),
         createdBy: user?.primaryEmailAddress?.emailAddress,
-        createdAt: moment().toDate(), // Ensure it is a Date object
-        paymentMethod: paymentMethod,
+        createdAt: moment().toDate(),
+        payment_method: paymentMethod,  // Ensure this matches the column name
       }).returning({ insertedId: Expenses.id });
-
+  
       if (result) { 
         refreshData();
         toast.success("New Expense Added!");
@@ -44,6 +44,7 @@ function AddExpenses({ budgetId, user, refreshData }) {
       toast.error("Failed to add expense");
     }
   };
+  
 
   return (
     <div className="border bg-[#121212] p-5 rounded-lg text-gray-300">
