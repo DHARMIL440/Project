@@ -36,7 +36,7 @@ function Help() {
         <h2 className="text-2xl font-semibold text-white mb-4">Contact Us</h2>
         <p className="text-gray-300">If you need further assistance, feel free to reach out to us:</p>
         <ul className="list-none ml-6 text-gray-300">
-          <li>Email: <a href="mailto:202201440@daiict.ac.in" className="text-blue-400">support@expensetracker.com</a></li>
+          <li>Email: <a href="mailto:202201421@daiict.ac.in" className="text-blue-400">support@expensetracker.com</a></li>
         </ul>
       </div>
       

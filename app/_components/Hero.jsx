@@ -91,9 +91,9 @@ export default function Hero() {
               Dhirubhai Ambani Institute of Information and Communication Technology
             </a>
           </p>
-          <p className="mt-4 lg:mt-0">Created by Dharmil Munjapara</p>
+          <p className="mt-4 lg:mt-0">Created by Students of DAIICT !</p>
           <a
-            href="https://github.com/DHARMIL440/IT314_G26_Expensify_Dharmil.git"
+            href="https://github.com/KkavyDave/IT314_G26_Expensify.git"
             className="text-blue-400 hover:text-blue-500 transition inline-flex items-center"
             target="_blank"
             rel="noopener noreferrer"
