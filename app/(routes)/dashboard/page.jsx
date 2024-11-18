@@ -52,19 +52,19 @@ export default function Dashboard() {
     setBudgetList(result);
   };
 
-  // Function to fetch latest 10 expenses
-  const getLatestExpenses = async () => {
-    const result = await db
-      .select({
-        ...Expenses,
-        budgetName: Budgets.name, // Assuming 'name' is the column for budget name
-      })
-      .from(Expenses)
-      .leftJoin(Budgets, eq(Expenses.budgetId, Budgets.id))
-      .orderBy(Expenses.createdAt, "desc")
-      .limit(10); // Fetch the latest 10 expenses
-    setLatestExpenses(result);
-  };
+const getLatestExpenses = async () => {
+  const result = await db
+    .select({
+      ...Expenses,
+      budgetName: Budgets.name, 
+    })
+    .from(Expenses)
+    .leftJoin(Budgets, eq(Expenses.budgetId, Budgets.id))
+    .orderBy(Expenses.createdAt, "desc")
+    .limit(10); // Fetch the latest 10 expenses
+  setLatestExpenses(result);
+};
+
 
   return (
     <div className="p-8 min-h-screen bg-gradient-to-b from-black via-gray-900 to-[#0b234a] text-white">
