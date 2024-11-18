@@ -1,9 +1,9 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from "react";
 import { useUser } from "@clerk/nextjs";
 import CardInfo from "@/app/(routes)/dashboard/_components/CardInfo"; // Updated to use @ alias
 import { db } from "@/utils/dbConfig"; // Updated to use @ alias
-import { eq, getTableColumns, sql } from "drizzle-orm";
+import { eq, getTableColumns, sql , desc} from "drizzle-orm";
 import { Budgets, Expenses } from "@/utils/schema"; // Updated to use @ alias
 import BarChartDashboard from "@/app/(routes)/dashboard/_components/BarChartDashboard"; // Updated to use @ alias
 import ExpenseListTable from "@/app/(routes)/dashboard/expenses/_components/ExpenseListTable"; // Updated to use @ alias
@@ -52,18 +52,37 @@ export default function Dashboard() {
     setBudgetList(result);
   };
 
-const getLatestExpenses = async () => {
-  const result = await db
-    .select({
-      ...Expenses,
-      budgetName: Budgets.name, 
-    })
-    .from(Expenses)
-    .leftJoin(Budgets, eq(Expenses.budgetId, Budgets.id))
-    .orderBy(Expenses.createdAt, "desc")
-    .limit(10); // Fetch the latest 10 expenses
-  setLatestExpenses(result);
-};
+
+  const getLatestExpenses = async () => {
+    if (!user?.primaryEmailAddress?.emailAddress) return;
+  
+    // First, get the user's budgets
+    const userBudgets = await db
+      .select({ id: Budgets.id })
+      .from(Budgets)
+      .where(eq(Budgets.createdBy, user.primaryEmailAddress.emailAddress));
+  
+    // Fetch last 3 expenses for each budget
+    const expensePromises = userBudgets.map(async (budget) => {
+      return await db
+        .select()
+        .from(Expenses)
+        .where(eq(Expenses.budgetId, budget.id))
+        .orderBy(desc(Expenses.createdAt))
+        .limit(3);
+    });
+  
+    // Wait for all budget expense queries to complete
+    const budgetExpenses = await Promise.all(expensePromises);
+  
+    // Flatten the results
+    const latestExpenses = budgetExpenses.flat();
+  
+    setLatestExpenses(latestExpenses);
+  };
+
+  
+  
 
 
   return (
