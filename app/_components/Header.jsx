@@ -15,7 +15,7 @@ function Header() {
 
   const handleDashboardClick = () => {
     if (isSignedIn) {
-      router.push("/dashboard"); // Navigate to dashboard if signed in
+      router.push("/dashboard"); 
     } else {
       toast.warning("Please sign in first to access the dashboard!", {
       });
