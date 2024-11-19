@@ -19,7 +19,7 @@ function BudgetItem({ budget }) {
       </div>
       <div className='mt-5'>
         <div className='flex justify-between mb-3 text-xs text-slate-400'>
-          <h2>${budget?.totalSpend || 0} Spend</h2>
+          <h2>${budget?.totalSpend || 0} Spent</h2>
           <h2>${budget?.amount - (budget?.totalSpend || 0)} Remaining</h2>
         </div>
         <div className='w-full bg-[#2a2a2a] h-2 rounded-full'>

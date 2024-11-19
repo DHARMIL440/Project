@@ -10,7 +10,7 @@ function DashboardHeader({ userName, totalBudget, totalExpense }) {
         </h2>
         <div className='mt-2 text-sm text-gray-300'>
           <span>Total Budget: ${totalBudget.toFixed(2)}</span> | 
-          <span className='ml-2'>Total Spend: ${totalExpense.toFixed(2)}</span>
+          <span className='ml-2'>Total Spent: ${totalExpense.toFixed(2)}</span>
         </div>
       </div>
       <div>
