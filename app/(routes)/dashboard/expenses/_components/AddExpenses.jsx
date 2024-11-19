@@ -20,10 +20,6 @@ function AddExpenses({ budgetId, user, refreshData }) {
     'Cheque'
   ];
 
-  
-  
-
-
   const sendNotification = async (budgetName, budgetLimit, currentTotal) => {
     try {
       const response = await fetch('/sendEmail.js', {
@@ -51,8 +47,12 @@ function AddExpenses({ budgetId, user, refreshData }) {
     }
   };
 
-  
   const addNewExpense = async () => {
+    if (!name || !amount || !paymentMethod) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+
     try {
       const result = await db.insert(Expenses).values({
         name: name,
@@ -68,17 +68,16 @@ function AddExpenses({ budgetId, user, refreshData }) {
   
         // Fetch the budget details
         const budget = await db
-  .select({
-    name: Budgets.name,
-    amount: Budgets.amount, // Field to track the budget amount
-  })
-  .from(Budgets)
-  .where(eq(Budgets.id, Number(budgetId))); // Corrected query
-
+          .select({
+            name: Budgets.name,
+            amount: Budgets.amount,
+          })
+          .from(Budgets)
+          .where(eq(Budgets.id, Number(budgetId))); 
   
         if (budget.length > 0) {
           const { name: budgetName, amount: budgetLimit } = budget[0];
-          const currentTotal = budget[0].amount; // Assuming you track the total in the 'amount' field
+          const currentTotal = budget[0].amount;
   
           // Check if the budget is exceeded
           if (currentTotal + Number(amount) > budgetLimit) {
@@ -96,8 +95,6 @@ function AddExpenses({ budgetId, user, refreshData }) {
       toast.error("Failed to add expense");
     }
   };
-  
-  
 
   return (
     <div className="border bg-[#121212] p-5 rounded-lg text-gray-300">

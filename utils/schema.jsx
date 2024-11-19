@@ -17,5 +17,5 @@ export const Expenses = pgTable("expenses", {
     amount: integer('amount').notNull(),
     budgetId: integer('budgetId').references(() => Budgets.id),
     createdAt: timestamp('createdAt', { withTimezone: true }).notNull().default(sql`CURRENT_TIMESTAMP`),
-    payment_method: varchar('payment_method', { length: 10 }).notNull().default('Cash'),
+    payment_method: varchar('payment_method', { length: 20 }).notNull().default('Cash'),
 });
