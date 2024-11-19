@@ -3,17 +3,29 @@
 import React from "react";
 import { Button } from "@/components/ui/button"; // Updated import path based on alias
 import { UserButton, useUser } from "@clerk/nextjs";
+import { useRouter } from "next/navigation"; // Import useRouter for programmatic navigation
 import Link from "next/link"; // Import Link for navigation
 import Image from "next/image"; // Import Image component
+import { toast } from "sonner";
 
 
 function Header() {
-  const { user, isSignedIn } = useUser();
+  const { isSignedIn } = useUser();
+  const router = useRouter();
+
+  const handleDashboardClick = () => {
+    if (isSignedIn) {
+      router.push("/dashboard"); // Navigate to dashboard if signed in
+    } else {
+      toast.warning("Please sign in first to access the dashboard!", {
+      });
+    }
+  };
 
   return (
-    <div className="p-4 flex justify-between items-center bg-gradient-to-r from-blue-800 via-gray-800 to-black shadow-md">
+    <header className="p-4 flex justify-between items-center bg-gradient-to-r from-blue-800 via-gray-800 to-black shadow-md">
       {/* Logo image with link to home */}
-      <Link href="/" passHref>
+      <Link href="/">
         <Image
           src="/logo.png" // Ensure logo.png is in the 'public' folder
           alt="Expensify Logo"
@@ -27,19 +39,20 @@ function Header() {
         {isSignedIn ? (
           <UserButton />
         ) : (
-          <Link href="/sign-in" passHref>
+          <Link href="/sign-in">
             <Button className="px-6 py-2 text-white bg-blue-500 hover:bg-blue-600 transition-all duration-200">
               Get Started
             </Button>
           </Link>
         )}
-        <Link href="/dashboard" passHref>
-          <Button className="px-6 py-2 text-white bg-gray-700 hover:bg-gray-800 transition-all duration-200">
-            Go to Dashboard
-          </Button>
-        </Link>
+        <Button
+          onClick={handleDashboardClick}
+          className="px-6 py-2 text-white bg-gray-700 hover:bg-gray-800 transition-all duration-200"
+        >
+          Go to Dashboard
+        </Button>
       </div>
-    </div>
+    </header>
   );
 }
 
