@@ -21,7 +21,7 @@ function Header() {
       });
     }
   };
-
+  // added func
   return (
     <header className="p-4 flex justify-between items-center bg-gradient-to-r from-blue-800 via-gray-800 to-black shadow-md">
       {/* Logo image with link to home */}
