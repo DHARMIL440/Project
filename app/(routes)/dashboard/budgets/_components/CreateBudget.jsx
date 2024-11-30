@@ -7,25 +7,26 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"; 
+} from "@/components/ui/dialog";
 
 import EmojiPicker from "emoji-picker-react";
-import { Button } from "@/components/ui/button"; // Updated import using @ alias
-import { Input } from "@/components/ui/input"; // Updated import using @ alias
-import { db } from "@/utils/dbConfig"; // Updated import using @ alias
-import { Budgets } from "@/utils/schema"; // Updated import using @ alias
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { db } from "@/utils/dbConfig";
+import { Budgets } from "@/utils/schema";
 import { useUser } from "@clerk/nextjs";
 import { toast } from "sonner";
-
 
 function CreateBudget({ refreshData }) {
   const [emojiIcon, setEmojiIcon] = useState("😀");
   const [openEmojiPicker, setEmojiPicker] = useState(false);
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
-  const [openDialog, setOpenDialog] = useState(false); // Control dialog state
+  const [currency, setCurrency] = useState("INR"); // Default currency is Rupee
+  const [openDialog, setOpenDialog] = useState(false);
   const { user } = useUser();
 
+  // Function to handle budget creation
   const onCreateBudget = async () => {
     if (!db || !db.insert) {
       toast("Database connection error.");
@@ -36,7 +37,7 @@ function CreateBudget({ refreshData }) {
       const result = await db.insert(Budgets)
         .values({
           name: name,
-          amount: amount,
+          amount: amount, // Store the amount in Dollar, but user selects the currency
           createdBy: user?.primaryEmailAddress?.emailAddress,
           icon: emojiIcon,
         })
@@ -45,7 +46,7 @@ function CreateBudget({ refreshData }) {
       if (result) {
         refreshData();
         toast("New Budget Created!");
-        setOpenDialog(false); // Close the dialog after creating the budget
+        setOpenDialog(false);
       } else {
         toast("Failed to create budget.");
       }
@@ -61,7 +62,7 @@ function CreateBudget({ refreshData }) {
         <DialogTrigger asChild>
           <div
             className="bg-[#2d2d2d] p-10 rounded-md items-center flex flex-col border-2 border-dashed cursor-pointer hover:shadow-md"
-            onClick={() => setOpenDialog(true)} // Open dialog on click
+            onClick={() => setOpenDialog(true)}
           >
             <h2 className="text-3xl text-white">+</h2>
             <h2 className="text-white">Create New Budget</h2>
@@ -87,7 +88,7 @@ function CreateBudget({ refreshData }) {
                         setEmojiIcon(e.emoji);
                         setEmojiPicker(false);
                       }}
-                      theme="dark" // Setting dark theme for the emoji picker
+                      theme="dark"
                     />
                   </div>
                 )}
@@ -110,6 +111,19 @@ function CreateBudget({ refreshData }) {
                   onChange={(e) => setAmount(e.target.value)}
                   className="bg-[#333] text-white border-[#555] focus:ring-2 focus:ring-white placeholder-gray-400 w-full p-3 rounded-md"
                 />
+              </div>
+              <div className="mt-4">
+                <h2 className="font-medium my-1 text-lg text-center">Currency</h2>
+                <select
+                  value={currency}
+                  onChange={(e) => setCurrency(e.target.value)}
+                  className="bg-[#333] text-white border-[#555] focus:ring-2 focus:ring-white placeholder-gray-400 w-full p-3 rounded-md"
+                >
+                  <option value="INR">₹ Rupee (INR)</option>
+                  <option value="USD">Dollar (USD)</option>
+                  <option value="EUR">Euro (EUR)</option>
+                  {/* Add more currencies if needed */}
+                </select>
               </div>
               <Button
                 disabled={!(name && amount)}

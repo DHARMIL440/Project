@@ -8,8 +8,17 @@ export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true);
-  }, []);
+    // Reset visibility on page load or refresh
+    setIsVisible(false);
+    
+    // Trigger animation after a short delay
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 100); // Delay for triggering animation
+
+    // Cleanup the timeout if the component is unmounted
+    return () => clearTimeout(timer);
+  }, []); // Empty dependency array ensures this runs only on mount (page refresh)
 
   const animatedStyle = {
     opacity: isVisible ? 1 : 0,
@@ -42,7 +51,7 @@ export default function Hero() {
           <div className="w-full text-left mb-4">
             <h1
               className="text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:leading-tight"
-              style={{ ...animatedStyle, transitionDelay: "0.2s" }}
+              style={{ ...animatedStyle, transitionDelay: "0.5s" }} // Increased delay
             >
               Manage Your Expenses
             </h1>
@@ -52,7 +61,7 @@ export default function Hero() {
           <div className="w-full text-left mb-4">
             <strong
               className="block text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent sm:text-6xl md:text-7xl lg:leading-tight"
-              style={{ ...animatedStyle, transitionDelay: "0.4s" }}
+              style={{ ...animatedStyle, transitionDelay: "1s" }} // Increased delay
             >
               Control Your Money
             </strong>
@@ -62,7 +71,7 @@ export default function Hero() {
           <div className="mt-200">
             <p
               className="text-lg text-gray-400 mt-4 leading-relaxed"
-              style={{ ...animatedStyle, transitionDelay: "0.6s" }}
+              style={{ ...animatedStyle, transitionDelay: "1.5s" }} // Increased delay
             >
               Welcome to Expensify, your ultimate expense management tool! Our platform helps you 
               track your spending, create budgets, and visualize your financial habits, so you can 

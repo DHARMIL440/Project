@@ -3,14 +3,16 @@ import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
-import { LayoutGrid, PiggyBank, ReceiptText, ShieldCheck, Home } from 'lucide-react';
+import { LayoutGrid, PiggyBank, ReceiptText, ShieldCheck, Home, FileText, Download } from 'lucide-react';
 import { UserButton } from '@clerk/nextjs';
 
 export default function SideNav() {
   const menuList = [
     { id: 1, name: 'Dashboard', icon: LayoutGrid, path: '/dashboard' },
     { id: 2, name: 'Budgets', icon: PiggyBank, path: '/dashboard/budgets' },
-    { id: 3, name: 'Help', icon: ShieldCheck, path: '/dashboard/help' },
+    { id: 3, name: 'Reports', icon: FileText, path: '/dashboard/report' },
+    { id: 4, name: 'Help', icon: ShieldCheck, path: '/dashboard/help' },
+    { id: 5, name: 'Download', icon: Download, path: '/dashboard/download' }, 
   ];
 
   const path = usePathname();
@@ -19,6 +21,11 @@ export default function SideNav() {
   useEffect(() => {
     console.log(path);
   }, [path]);
+
+  const handleDownloadClick = () => {
+    // Add logic to trigger the file download (e.g., generating a report or downloading a file)
+    console.log("Download initiated");
+  };
 
   return (
     <div className="h-screen bg-gradient-to-b from-black via-gray-900 to-gray-950 flex flex-col justify-between p-5">
@@ -58,6 +65,8 @@ export default function SideNav() {
             Go to Main Page
           </h2>
         </Link>
+
+       
 
         {/* User Button */}
         <UserButton afterSignOutUrl="/" />
