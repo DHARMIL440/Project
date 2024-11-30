@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import { FaMapMarkerAlt, FaGithub } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export default function Hero() {
   const [isVisible, setIsVisible] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     // Reset visibility on page load or refresh
@@ -37,7 +39,7 @@ export default function Hero() {
             background: #1f1f1f;
           }
           ::-webkit-scrollbar-thumb {
-            background-color: #3b82f6; /* Adjusted to a blue color */
+            background-color: #3b82f6;
             border-radius: 10px;
           }
           ::-webkit-scrollbar-thumb:hover {
@@ -51,9 +53,9 @@ export default function Hero() {
           <div className="w-full text-left mb-4">
             <h1
               className="text-5xl font-bold text-white sm:text-6xl md:text-7xl lg:leading-tight"
-              style={{ ...animatedStyle, transitionDelay: "0.5s" }} // Increased delay
+              style={{ ...animatedStyle, transitionDelay: "0.5s" }}
             >
-              Manage Your Expenses
+              Track Your Expenses Easily
             </h1>
           </div>
 
@@ -61,9 +63,9 @@ export default function Hero() {
           <div className="w-full text-left mb-4">
             <strong
               className="block text-5xl font-bold bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent sm:text-6xl md:text-7xl lg:leading-tight"
-              style={{ ...animatedStyle, transitionDelay: "1s" }} // Increased delay
+              style={{ ...animatedStyle, transitionDelay: "1s" }}
             >
-              Control Your Money
+              Gain Control of Your Finances
             </strong>
           </div>
 
@@ -71,12 +73,11 @@ export default function Hero() {
           <div className="mt-200">
             <p
               className="text-lg text-gray-400 mt-4 leading-relaxed"
-              style={{ ...animatedStyle, transitionDelay: "1.5s" }} // Increased delay
+              style={{ ...animatedStyle, transitionDelay: "1.5s" }}
             >
-              Welcome to Expensify, your ultimate expense management tool! Our platform helps you 
-              track your spending, create budgets, and visualize your financial habits, so you can 
-              take control of your finances and achieve your goals. With a user-friendly interface 
-              and powerful features, managing your money has never been easier.
+              Welcome to Expensify, the ultimate tool to help you manage your expenses and
+              keep track of your finances. Stay on top of your spending, create budgets, 
+              and visualize your financial habits with ease.
             </p>
           </div>
         </div>
@@ -100,7 +101,7 @@ export default function Hero() {
               Dhirubhai Ambani Institute of Information and Communication Technology
             </a>
           </p>
-          <p className="mt-4 lg:mt-0">Created by Students of DAIICT !</p>
+          <p className="mt-4 lg:mt-0">Created by Students of DAIICT!</p>
           <a
             href="https://github.com/KkavyDave/IT314_G26_Expensify.git"
             className="text-blue-400 hover:text-blue-500 transition inline-flex items-center"

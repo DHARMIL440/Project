@@ -11,8 +11,8 @@ export default function SideNav() {
     { id: 1, name: 'Dashboard', icon: LayoutGrid, path: '/dashboard' },
     { id: 2, name: 'Budgets', icon: PiggyBank, path: '/dashboard/budgets' },
     { id: 3, name: 'Reports', icon: FileText, path: '/dashboard/report' },
-    { id: 4, name: 'Help', icon: ShieldCheck, path: '/dashboard/help' },
-    { id: 5, name: 'Download', icon: Download, path: '/dashboard/download' }, 
+    { id: 4, name: 'Download', icon: Download, path: '/dashboard/download' }, 
+    { id: 5, name: 'Help', icon: ShieldCheck, path: '/dashboard/help' },
   ];
 
   const path = usePathname();
